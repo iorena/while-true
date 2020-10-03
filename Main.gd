@@ -18,6 +18,8 @@ func _ready():
 
 func _on_TVTimer_timeout():
 	$BottomPanel/ScrollContainer/VBoxContainer/LogText.text += "News anchor on TV: Not much to report today. The city is free of terrorism! \n"
+	print($BottomPanel/ScrollContainer.get_v_scrollbar().max_value)
+	#$BottomPanel/ScrollContainer.scroll_vertical = $BottomPanel/ScrollContainer.get_v_scrollbar().max_value - 1
 	$TVTimer.wait_time = randi() % 10 + 5
 	$TVTimer.start()
 	
