@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 # Player globals
-var speed = 64
+var speed = 32
 var tile_size = 32
 
 # Available actions
@@ -26,26 +26,9 @@ func _ready():
 	target_position = position
 
 func action_light():
-	if action_number == 0:
-		get_parent().get_node("SidePanel/Light1").play("blink")
-		get_parent().get_node("SidePanel/Light2").play("idle")
-		get_parent().get_node("SidePanel/Light3").play("idle")
-		get_parent().get_node("SidePanel/Light4").play("idle")
-	elif action_number == 1:
-		get_parent().get_node("SidePanel/Light1").play("idle")
-		get_parent().get_node("SidePanel/Light2").play("blink")
-		get_parent().get_node("SidePanel/Light3").play("idle")
-		get_parent().get_node("SidePanel/Light4").play("idle")
-	elif action_number == 2:
-		get_parent().get_node("SidePanel/Light1").play("idle")
-		get_parent().get_node("SidePanel/Light2").play("idle")
-		get_parent().get_node("SidePanel/Light3").play("blink")
-		get_parent().get_node("SidePanel/Light4").play("idle")
-	else:
-		get_parent().get_node("SidePanel/Light1").play("idle")
-		get_parent().get_node("SidePanel/Light2").play("idle")
-		get_parent().get_node("SidePanel/Light3").play("idle")
-		get_parent().get_node("SidePanel/Light4").play("blink")
+	get_parent().get_node("SidePanel/Light" + String(action_number + 1)).play("blink")
+	for i in range(action_number) + range(action_number + 1, 4): 
+		get_parent().get_node("SidePanel/Light" + String(i + 1)).play("idle")
 
 func _on_ActionTimer_timeout():
 	action_light()
@@ -62,41 +45,28 @@ func _on_ActionTimer_timeout():
 	if action_number == action_buffer.size(): action_number = 0
 
 func modify_action_text(text):
-	if modify_action == 0:
-		get_parent().get_node("SidePanel/Action1").text = text
-	elif modify_action == 1:
-		get_parent().get_node("SidePanel/Action2").text = text
-	elif modify_action == 2:
-		get_parent().get_node("SidePanel/Action3").text = text
-	else:
-		get_parent().get_node("SidePanel/Action4").text = text
-	
+	get_parent().get_node("SidePanel/Action" + String(modify_action + 1)).text = text
+
+func set_action_index_and_clear_rest(idx): 
+	get_parent().get_node("SidePanel/Selected" + String(idx)).visible_characters = -1
+	for i in range(1, idx) + range(idx + 1, 5): clear_action_index(i)
+
+func clear_action_index(idx): 
+	get_parent().get_node("SidePanel/Selected" + String(idx)).visible_characters = 0
 
 func modify_action_index():
 	if Input.is_key_pressed(KEY_1): 
 		modify_action = 0
-		get_parent().get_node("SidePanel/Selected1").visible_characters = -1
-		get_parent().get_node("SidePanel/Selected2").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected3").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected4").visible_characters = 0
+		set_action_index_and_clear_rest(1)
 	elif Input.is_key_pressed(KEY_2): 
 		modify_action = 1
-		get_parent().get_node("SidePanel/Selected1").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected2").visible_characters = -1
-		get_parent().get_node("SidePanel/Selected3").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected4").visible_characters = 0
+		set_action_index_and_clear_rest(2)
 	elif Input.is_key_pressed(KEY_3): 
 		modify_action = 2
-		get_parent().get_node("SidePanel/Selected1").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected2").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected3").visible_characters = -1
-		get_parent().get_node("SidePanel/Selected4").visible_characters = 0
+		set_action_index_and_clear_rest(3)
 	elif Input.is_key_pressed(KEY_4): 
 		modify_action = 3
-		get_parent().get_node("SidePanel/Selected1").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected2").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected3").visible_characters = 0
-		get_parent().get_node("SidePanel/Selected4").visible_characters = -1
+		set_action_index_and_clear_rest(4)
 
 func modify_action():
 	if Input.is_action_pressed("ui_up"): 
