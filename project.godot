@@ -19,6 +19,10 @@ config/name="While(True)"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Isometric="*res://Isometric.gd"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
