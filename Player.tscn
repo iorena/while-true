@@ -163,6 +163,6 @@ current = true
 smoothing_enabled = true
 
 [node name="ActionTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.5
 autostart = true
 [connection signal="timeout" from="ActionTimer" to="." method="_on_ActionTimer_timeout"]

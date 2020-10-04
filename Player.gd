@@ -5,25 +5,42 @@ var speed = 32
 var tile_size = 32
 
 # Available actions
-enum {FORWARD, TURN_LEFT, TURN_RIGHT}
+enum {FORWARD, TURN_LEFT, TURN_RIGHT, WAIT}
+const FORWARD_ACTION_TEXT = "Move forward"
+const TURN_LEFT_ACTION_TEXT = "Turn left"
+const TURN_RIGHT_ACTION_TEXT = "Turn right"
+const WAIT_ACTION_TEXT = "Wait"
+
+var can_act = true
 
 # Action buffer
-var action_buffer = [FORWARD, FORWARD, FORWARD, FORWARD]
+var action_buffer = [WAIT, WAIT, TURN_RIGHT, TURN_RIGHT]
 var action_number = 0
 var modify_action = 0
 
 # Movement-related variables
 enum {MOVING_RIGHT, MOVING_DOWN, MOVING_LEFT, MOVING_UP}
-var moving_to = MOVING_RIGHT # right, down, left, up
+var moving_to = MOVING_DOWN # right, down, left, up
 var movedir = Vector2.ZERO
 var last_position = Vector2()
 var target_position = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Camera2D.zoom.x = 0.6
+	$Camera2D.zoom.y = 0.6
 	position = position.snapped(Isometric.cartesian_to_isometric(Vector2.ONE * tile_size))
 	last_position = position
 	target_position = position
+	for i in range(1, 5): clear_action_index(i)
+	for i in range(1, 3): set_action_text(i, WAIT_ACTION_TEXT)
+	for i in range(3, 5): set_action_text(i, TURN_RIGHT_ACTION_TEXT)
+	toggle_act()
+
+func toggle_act():
+	for i in range(1, 5):
+		get_parent().get_node("SidePanel/Lock" + String(i)).visible = can_act
+	can_act = !can_act
 
 func action_light():
 	get_parent().get_node("SidePanel/Light" + String(action_number + 1)).play("blink")
@@ -36,16 +53,18 @@ func _on_ActionTimer_timeout():
 	if action == FORWARD:
 		move_forward()
 	elif action == TURN_LEFT:
+		yield(get_tree().create_timer(0.5), "timeout")
 		turn_left()
 	elif action == TURN_RIGHT:
+		yield(get_tree().create_timer(0.5), "timeout")
 		turn_right()
-	else:
-		print("Unknown action.")
 	action_number += 1
 	if action_number == action_buffer.size(): action_number = 0
 
-func modify_action_text(text):
-	get_parent().get_node("SidePanel/Action" + String(modify_action + 1)).text = text
+func set_action_text(idx, text):
+	get_parent().get_node("SidePanel/Action" + String(idx)).text = text
+
+func modify_action_text(text): set_action_text(modify_action + 1, text)
 
 func set_action_index_and_clear_rest(idx): 
 	get_parent().get_node("SidePanel/Selected" + String(idx)).visible_characters = -1
@@ -55,29 +74,31 @@ func clear_action_index(idx):
 	get_parent().get_node("SidePanel/Selected" + String(idx)).visible_characters = 0
 
 func modify_action_index():
-	if Input.is_key_pressed(KEY_1): 
-		modify_action = 0
-		set_action_index_and_clear_rest(1)
-	elif Input.is_key_pressed(KEY_2): 
-		modify_action = 1
-		set_action_index_and_clear_rest(2)
-	elif Input.is_key_pressed(KEY_3): 
-		modify_action = 2
-		set_action_index_and_clear_rest(3)
-	elif Input.is_key_pressed(KEY_4): 
-		modify_action = 3
-		set_action_index_and_clear_rest(4)
+	if can_act:
+		if Input.is_key_pressed(KEY_1): 
+			modify_action = 0
+			set_action_index_and_clear_rest(1)
+		elif Input.is_key_pressed(KEY_2): 
+			modify_action = 1
+			set_action_index_and_clear_rest(2)
+		elif Input.is_key_pressed(KEY_3): 
+			modify_action = 2
+			set_action_index_and_clear_rest(3)
+		elif Input.is_key_pressed(KEY_4): 
+			modify_action = 3
+			set_action_index_and_clear_rest(4)
 
 func modify_action():
-	if Input.is_action_pressed("ui_up"): 
-		action_buffer[modify_action] = FORWARD
-		modify_action_text("Move forward")
-	elif Input.is_action_pressed("ui_left"): 
-		action_buffer[modify_action] = TURN_LEFT
-		modify_action_text("Turn left")
-	elif Input.is_action_pressed("ui_right"): 
-		action_buffer[modify_action] = TURN_RIGHT
-		modify_action_text("Turn right")
+	if can_act:
+		if Input.is_action_pressed("ui_up"): 
+			action_buffer[modify_action] = FORWARD
+			modify_action_text(FORWARD_ACTION_TEXT)
+		elif Input.is_action_pressed("ui_left"): 
+			action_buffer[modify_action] = TURN_LEFT
+			modify_action_text(TURN_LEFT_ACTION_TEXT)
+		elif Input.is_action_pressed("ui_right"): 
+			action_buffer[modify_action] = TURN_RIGHT
+			modify_action_text(TURN_RIGHT_ACTION_TEXT)
 
 func move_forward():
 	if moving_to == MOVING_RIGHT: movedir = Isometric.RIGHT
