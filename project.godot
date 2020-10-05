@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Isometric="*res://Isometric.gd"
+Actions="*res://Actions.gd"
 
 [rendering]
 
