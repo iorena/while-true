@@ -23,6 +23,7 @@ func _on_PlotTimer_timeout():
 	yield(get_tree().create_timer(7.5), "timeout")
 	player.timer.stop()
 	player.play_idle_animation()
+	stop_welding()
 	yield(get_tree().create_timer(2), "timeout")
 	set_new_player_actions(Actions.FORWARD, Actions.TURN_LEFT, Actions.FORWARD, Actions.FORWARD)
 	player.timer.start()
@@ -71,3 +72,7 @@ func unlock_player_actions():
 	player.can_act = true
 	sp.hide_locks()
 	sp.set_action_index_and_clear_rest(0)
+
+func stop_welding():
+	$LowerConveyorPath.stop_welding()
+	$UpperConveyorPath.stop_welding()

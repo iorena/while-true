@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UpperConveyorPath.gd" type="Script" id=2]
+[ext_resource path="res://ConveyorItem.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -228.458, -78.5831, 0, 0, 0, 0, 210.785, 137.616, 18.044, -7.31513, 0, 0, 216.149, 160.049, 0, 0, -6.82746, 5.36443, 178.598, 179.556, 14.1426, 8.29048, -14.1426, -8.29048, 140.559, 175.655, 0, 0, 0, 0, 106.308, 159.049, 0, 0, 0, 0, -101.098, 54.9971, 0, 0, 0, 0, -191.883, 11.7001, 0, 0, 0, 0, -446.776, -113.302 )
+}
+
+[node name="UpperConveyorPath" type="Path2D"]
+position = Vector2( -2.43837, 1.9507 )
+curve = SubResource( 1 )
+script = ExtResource( 2 )
+
+[node name="Follow1" type="PathFollow2D" parent="."]
+position = Vector2( 182.788, 123.836 )
+rotation = 0.469823
+offset = 458.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow1" instance=ExtResource( 3 )]
+
+[node name="Follow2" type="PathFollow2D" parent="."]
+position = Vector2( 154.08, 109.706 )
+rotation = 0.469823
+offset = 426.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow2" instance=ExtResource( 3 )]
+
+[node name="Follow3" type="PathFollow2D" parent="."]
+position = Vector2( 68.8062, 140.235 )
+rotation = 0.469823
+offset = 682.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow3" instance=ExtResource( 3 )]
+
+[node name="Follow4" type="PathFollow2D" parent="."]
+position = Vector2( 40.235, 125.901 )
+rotation = 0.469823
+offset = 714.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow4" instance=ExtResource( 3 )]
+
+[node name="Follow5" type="PathFollow2D" parent="."]
+position = Vector2( -189.434, 12.8683 )
+rotation = 0.469823
+offset = 970.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow5" instance=ExtResource( 3 )]
+
+[node name="Follow6" type="PathFollow2D" parent="."]
+position = Vector2( -160.535, 26.6503 )
+rotation = 0.469823
+offset = 938.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow6" instance=ExtResource( 3 )]
+
+[node name="Follow7" type="PathFollow2D" parent="."]
+position = Vector2( -47.3235, 10.5728 )
+rotation = 0.469823
+offset = 202.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow7" instance=ExtResource( 3 )]
+
+[node name="Follow8" type="PathFollow2D" parent="."]
+position = Vector2( -75.9723, -3.52838 )
+rotation = 0.469823
+offset = 170.0
+rotate = false
+loop = false
+
+[node name="Item" parent="Follow8" instance=ExtResource( 3 )]

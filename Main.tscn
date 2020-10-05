@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://assets/wall_right.png" type="Texture" id=1]
 [ext_resource path="res://assets/wall_left.png" type="Texture" id=2]
@@ -19,7 +19,9 @@
 [ext_resource path="res://assets/conveyor_down_turn.png" type="Texture" id=17]
 [ext_resource path="res://Main.gd" type="Script" id=18]
 [ext_resource path="res://ObjectTiles.tres" type="TileSet" id=19]
+[ext_resource path="res://LowerConveyorPath.tscn" type="PackedScene" id=20]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=21]
+[ext_resource path="res://UpperConveyorPath.tscn" type="PackedScene" id=22]
 [ext_resource path="res://assets/shady_guy_animation.png" type="Texture" id=23]
 
 [sub_resource type="TileSet" id=1]
@@ -224,7 +226,7 @@
 9/shapes = [  ]
 9/z_index = 0
 
-[sub_resource type="TileSet" id=18]
+[sub_resource type="TileSet" id=4]
 0/name = "factory_floor1.png 0"
 0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
@@ -240,77 +242,77 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=5]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=6]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 64, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=7]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 128, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=8]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 192, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=9]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 256, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=10]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=11]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 384, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=12]
 flags = 4
 atlas = ExtResource( 5 )
 region = Rect2( 448, 0, 64, 128 )
 
-[sub_resource type="SpriteFrames" id=12]
+[sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=14]
 flags = 4
 atlas = ExtResource( 23 )
 region = Rect2( 0, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=15]
 flags = 4
 atlas = ExtResource( 23 )
 region = Rect2( 64, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=16]
 flags = 4
 atlas = ExtResource( 23 )
 region = Rect2( 128, 0, 64, 128 )
 
-[sub_resource type="AtlasTexture" id=16]
+[sub_resource type="AtlasTexture" id=17]
 flags = 4
 atlas = ExtResource( 23 )
 region = Rect2( 192, 0, 64, 128 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id=18]
 animations = [ {
-"frames": [ SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
@@ -348,12 +350,12 @@ tile_set = ExtResource( 19 )
 format = 1
 
 [node name="Collision" type="TileMap" parent="Map"]
-tile_set = SubResource( 18 )
+tile_set = SubResource( 4 )
 format = 1
 
 [node name="TV" type="AnimatedSprite" parent="."]
 position = Vector2( 225.864, 87.7243 )
-frames = SubResource( 12 )
+frames = SubResource( 13 )
 frame = 7
 playing = true
 
@@ -382,7 +384,13 @@ one_shot = true
 
 [node name="ShadyGuy" type="AnimatedSprite" parent="."]
 position = Vector2( 496.224, 2.66024 )
-frames = SubResource( 17 )
+frames = SubResource( 18 )
+
+[node name="UpperConveyorPath" parent="." instance=ExtResource( 22 )]
+position = Vector2( -2.438, 1.951 )
+
+[node name="LowerConveyorPath" parent="." instance=ExtResource( 20 )]
+position = Vector2( -133.726, 64.103 )
 [connection signal="timeout" from="TVTimer" to="." method="_on_TVTimer_timeout"]
 [connection signal="timeout" from="PlotTimer" to="." method="_on_PlotTimer_timeout"]
 [connection signal="timeout" from="PlotTimer2" to="." method="_on_PlotTimer2_timeout"]
