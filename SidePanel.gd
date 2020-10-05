@@ -28,6 +28,13 @@ func show_locks():
 func hide_locks():
 	for i in range(4): SP_locks[i].visible = false
 
+func show_instructions(): 
+	$Instructions.visible = true
+	$InstructionsDetailed.visible = true
+func hide_instructions(): 
+	$Instructions.visible = false
+	$InstructionsDetailed.visible = false
+
 func play_action_light(idx):
 	play_blink_animation(idx)
 	for i in range(idx) + range(idx + 1, 4): play_idle_animation(i)

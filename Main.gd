@@ -67,11 +67,13 @@ func set_new_player_actions(A1, A2, A3, A4):
 func lock_player_actions():
 	player.can_act = false
 	sp.show_locks()
+	sp.hide_instructions()
 	for i in range(4): sp.clear_action_index(i)
 	
 func unlock_player_actions():
 	player.can_act = true
 	sp.hide_locks()
+	sp.show_instructions()
 	sp.set_action_index_and_clear_rest(0)
 
 func stop_welding():

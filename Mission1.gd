@@ -34,4 +34,5 @@ func set_new_player_actions(A1, A2, A3, A4):
 func unlock_player_actions():
 	player.can_act = true
 	sp.hide_locks()
+	sp.show_instructions()
 	sp.set_action_index_and_clear_rest(0)

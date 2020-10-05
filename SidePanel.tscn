@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/side_panel.png" type="Texture" id=1]
 [ext_resource path="res://Consolas.tres" type="DynamicFont" id=2]
 [ext_resource path="res://assets/light_animation.png" type="Texture" id=3]
 [ext_resource path="res://assets/lock.png" type="Texture" id=4]
 [ext_resource path="res://SidePanel.gd" type="Script" id=5]
+[ext_resource path="res://ConsolasSmall.tres" type="DynamicFont" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -174,3 +175,36 @@ texture = ExtResource( 4 )
 position = Vector2( 285, -50 )
 scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 4 )
+
+[node name="Instructions" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 280.0
+margin_top = 10.0
+margin_right = 500.0
+margin_bottom = 36.0
+custom_fonts/normal_font = ExtResource( 2 )
+text = "Instructions"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InstructionsDetailed" type="RichTextLabel" parent="."]
+visible = false
+margin_left = 280.0
+margin_top = 40.0
+margin_right = 500.0
+margin_bottom = 290.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "Select instruction
+  1       Instruction 1
+  2       Instruction 2
+  3       Instruction 3
+  4       Instruction 4
+
+Modify action
+  UP      Move forward
+  LEFT    Turn left
+  RIGHT   Turn right"
+__meta__ = {
+"_edit_use_anchors_": false
+}
