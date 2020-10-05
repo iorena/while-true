@@ -10,9 +10,11 @@ func set_zoom(val):
 	zoom = Vector2.ONE * val
 	reset_target_zoom()
 
-func set_smooth_zoom(val): target_zoom = Vector2.ONE * val
+func set_smooth_zoom(val):
+	target_zoom = Vector2.ONE * val
 
-func reset_target_zoom(): target_zoom = zoom
+func reset_target_zoom(): 
+	target_zoom = zoom
 
 func zooming_in_process(): return zoom != target_zoom
 

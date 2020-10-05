@@ -332,10 +332,10 @@ format = 1
 [node name="TV" type="AnimatedSprite" parent="."]
 position = Vector2( 225.864, 87.7243 )
 frames = SubResource( 12 )
+frame = 5
 playing = true
 
 [node name="BottomPanel" parent="." instance=ExtResource( 7 )]
-visible = false
 
 [node name="TVTimer" type="Timer" parent="."]
 wait_time = 14.0
