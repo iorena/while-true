@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/wall_corner.png" type="Texture" id=4]
 [ext_resource path="res://assets/tv_animation.png" type="Texture" id=5]
 [ext_resource path="res://SidePanel.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/log_panel.png" type="Texture" id=7]
+[ext_resource path="res://BottomPanel.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/conveyor2_end.png" type="Texture" id=8]
 [ext_resource path="res://assets/conveyor2_middle.png" type="Texture" id=9]
 [ext_resource path="res://assets/conveyor_end.png" type="Texture" id=10]
@@ -327,51 +327,14 @@ tile_data = PoolIntArray( -1310714, 1, 0, -1245178, 1, 0, -1179642, 1, 0, -11141
 [node name="TV" type="AnimatedSprite" parent="."]
 position = Vector2( 225.864, 87.7243 )
 frames = SubResource( 12 )
-frame = 7
+frame = 3
 playing = true
 
-[node name="BottomPanel" type="Node2D" parent="."]
-position = Vector2( -368, -232 )
-
-[node name="BottomPanelSprite" type="Sprite" parent="BottomPanel"]
-position = Vector2( 460, 540 )
-texture = ExtResource( 7 )
-
-[node name="ScrollContainer" type="ScrollContainer" parent="BottomPanel"]
-margin_left = 160.0
-margin_top = 500.0
-margin_right = 760.0
-margin_bottom = 580.0
-grow_vertical = 0
-scroll_horizontal_enabled = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="BottomPanel/ScrollContainer"]
-margin_right = 600.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 600, 80 )
-alignment = 2
-
-[node name="LogText" type="RichTextLabel" parent="BottomPanel/ScrollContainer/VBoxContainer"]
-margin_right = 600.0
-margin_bottom = 80.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_min_size = Vector2( 0, 80 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
-bbcode_enabled = true
-bbcode_text = "[b]News anchor on TV[/b]: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!
-"
-text = "News anchor on TV: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!
-"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="BottomPanel" parent="." instance=ExtResource( 7 )]
 
 [node name="TVTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 14.0
+one_shot = true
 autostart = true
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
@@ -382,24 +345,17 @@ position = Vector2( 96, 184 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="PlotTimer" type="Timer" parent="."]
-wait_time = 22.0
+wait_time = 8.0
 one_shot = true
 autostart = true
 
 [node name="PlotTimer2" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 16.0
 one_shot = true
-autostart = true
-
-[node name="PlotTimer3" type="Timer" parent="."]
-wait_time = 44.0
-one_shot = true
-autostart = true
 
 [node name="ShadyGuy" type="AnimatedSprite" parent="."]
-position = Vector2( 692.61, -95.5325 )
+position = Vector2( 496.224, 2.66024 )
 frames = SubResource( 23 )
 [connection signal="timeout" from="TVTimer" to="." method="_on_TVTimer_timeout"]
 [connection signal="timeout" from="PlotTimer" to="." method="_on_PlotTimer_timeout"]
 [connection signal="timeout" from="PlotTimer2" to="." method="_on_PlotTimer2_timeout"]
-[connection signal="timeout" from="PlotTimer3" to="." method="_on_PlotTimer3_timeout"]

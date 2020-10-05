@@ -39,136 +39,134 @@ animations = [ {
 "speed": 5.0
 }, {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
-"loop": true,
+"loop": false,
 "name": "blink",
 "speed": 2.0
 } ]
 
 [node name="SidePanel" type="Node2D"]
-position = Vector2( -112, 16 )
-scale = Vector2( 0.5, 0.5 )
 script = ExtResource( 5 )
 
 [node name="SidePanelSprite" type="Sprite" parent="."]
-position = Vector2( 900, 300 )
+position = Vector2( 392, 0 )
 texture = ExtResource( 1 )
 
 [node name="Light1" type="AnimatedSprite" parent="."]
-position = Vector2( 820, 100 )
+position = Vector2( 312, -200 )
 frames = SubResource( 6 )
 animation = "idle"
 
 [node name="Light2" type="AnimatedSprite" parent="."]
-position = Vector2( 820, 150 )
+position = Vector2( 312, -150 )
 frames = SubResource( 6 )
 animation = "idle"
 
 [node name="Light3" type="AnimatedSprite" parent="."]
-position = Vector2( 820, 200 )
+position = Vector2( 312, -100 )
 frames = SubResource( 6 )
 animation = "idle"
 
 [node name="Light4" type="AnimatedSprite" parent="."]
-position = Vector2( 820, 250 )
+position = Vector2( 312, -50 )
 frames = SubResource( 6 )
 animation = "idle"
 
 [node name="Action1" type="RichTextLabel" parent="."]
-margin_left = 850.0
-margin_top = 90.0
-margin_right = 1024.0
-margin_bottom = 120.0
+margin_left = 335.0
+margin_top = -210.0
+margin_right = 500.0
+margin_bottom = -180.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Action2" type="RichTextLabel" parent="."]
-margin_left = 850.0
-margin_top = 140.0
-margin_right = 1024.0
-margin_bottom = 168.0
+margin_left = 335.0
+margin_top = -160.0
+margin_right = 500.0
+margin_bottom = -130.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Action3" type="RichTextLabel" parent="."]
-margin_left = 850.0
-margin_top = 190.0
-margin_right = 1030.0
-margin_bottom = 225.0
+margin_left = 335.0
+margin_top = -110.0
+margin_right = 500.0
+margin_bottom = -80.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Action4" type="RichTextLabel" parent="."]
-margin_left = 850.0
-margin_top = 240.0
-margin_right = 1028.0
-margin_bottom = 272.0
+margin_left = 335.0
+margin_top = -60.0
+margin_right = 500.0
+margin_bottom = -30.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Selected1" type="RichTextLabel" parent="."]
-margin_left = 790.0
-margin_top = 90.0
-margin_right = 816.0
-margin_bottom = 120.0
+margin_left = 280.0
+margin_top = -210.0
+margin_right = 310.0
+margin_bottom = -180.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Selected2" type="RichTextLabel" parent="."]
-margin_left = 790.0
-margin_top = 140.0
-margin_right = 816.0
-margin_bottom = 168.0
+margin_left = 280.0
+margin_top = -160.0
+margin_right = 310.0
+margin_bottom = -130.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Selected3" type="RichTextLabel" parent="."]
-margin_left = 792.0
-margin_top = 192.0
-margin_right = 820.0
-margin_bottom = 222.0
+margin_left = 280.0
+margin_top = -110.0
+margin_right = 310.0
+margin_bottom = -80.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Selected4" type="RichTextLabel" parent="."]
-margin_left = 790.0
-margin_top = 240.0
-margin_right = 820.0
-margin_bottom = 270.0
+margin_left = 280.0
+margin_top = -60.0
+margin_right = 310.0
+margin_bottom = -30.0
 custom_fonts/normal_font = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Lock1" type="Sprite" parent="."]
-position = Vector2( 793, 100 )
+position = Vector2( 285, -200 )
 scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 4 )
 
 [node name="Lock2" type="Sprite" parent="."]
-position = Vector2( 793, 150 )
+position = Vector2( 285, -150 )
 scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 4 )
 
 [node name="Lock3" type="Sprite" parent="."]
-position = Vector2( 793, 200 )
+position = Vector2( 285, -100 )
 scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 4 )
 
 [node name="Lock4" type="Sprite" parent="."]
-position = Vector2( 793, 250 )
+position = Vector2( 285, -50 )
 scale = Vector2( 0.04, 0.04 )
 texture = ExtResource( 4 )

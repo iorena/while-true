@@ -1,6 +1,9 @@
 extends KinematicBody2D
 
 onready var sp = get_parent().get_node("SidePanel")
+onready var bp = get_parent().get_node("BottomPanel")
+onready var camera = $Camera2D
+onready var timer = $ActionTimer
 
 # Player globals.
 var speed = 32
@@ -90,6 +93,13 @@ func move_forward():
 func turn_left(): facing_direction = (facing_direction + 3) % 4
 func turn_right(): facing_direction = (facing_direction + 1) % 4
 
+# Make sure panels follow player.
+func place_panels():
+	bp.position = position
+	sp.position = position
+	bp.scale = camera.zoom
+	sp.scale = camera.zoom
+
 # Move player towards movedir.
 func process_movement(delta):
 	position += speed * movedir * delta
@@ -97,6 +107,7 @@ func process_movement(delta):
 	if Isometric.isometric_distance(position, last_position) >= tile_size - speed * delta:
 		position = target_position
 		movedir = Vector2.ZERO
+	place_panels()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
