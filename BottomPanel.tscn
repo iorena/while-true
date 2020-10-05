@@ -37,8 +37,6 @@ custom_colors/default_color = Color( 0, 0, 0, 1 )
 bbcode_enabled = true
 bbcode_text = "[b]News anchor on TV[/b]: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!
 "
-text = "News anchor on TV: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!
-"
 __meta__ = {
 "_edit_use_anchors_": false
 }
