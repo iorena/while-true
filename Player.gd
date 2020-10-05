@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var sp = get_parent().get_node("SidePanel")
 onready var bp = get_parent().get_node("BottomPanel")
+onready var collision = get_parent().get_node("Map/Collision")
 onready var camera = $Camera2D
 onready var timer = $ActionTimer
 
@@ -10,7 +11,9 @@ var speed = 32
 var tile_size = 32
 var can_act = false
 var dead = false
+var mission_complete = false
 var holding_box = false
+var colliding = 0
 
 # Action buffer.
 var action_buffer = []
@@ -34,27 +37,21 @@ var target_position = Vector2()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	play_idle_animation()
-	position = position.snapped(Isometric.cartesian_to_isometric(Vector2.ONE * tile_size))
 	last_position = position
 	target_position = position
+	timer.start()
 
 # Set action number to next action.
 func increment_action_number(): action_number = (action_number + 1) % 4
 
 func _on_ActionTimer_timeout():
+	if dead or mission_complete: return
 	sp.play_action_light(action_number)
 	var action = action_buffer[action_number]
 	increment_action_number()
 	if action == Actions.FORWARD:
 		move_forward()
-		if not dead:
-			play_movement_animation()
-		else:
-			play_electrocute_animation()
-			yield(get_tree().create_timer(1), "timeout")
-			get_parent().restart_scene()
-			
+		if not dead and not mission_complete: play_movement_animation()
 		return
 	elif action == Actions.TURN_LEFT:
 		yield(get_tree().create_timer(0.5), "timeout")
@@ -94,21 +91,31 @@ func get_action_type_from_input():
 		action_buffer[modify_action_number] = Actions.TURN_RIGHT
 		sp.set_action_text(modify_action_number, Actions.TURN_RIGHT_ACTION_TEXT)
 
+func death():
+	play_electrocute_animation()
+	yield(get_tree().create_timer(2), "timeout")
+	get_parent().restart_scene()
+
+func handle_collision():
+	var cell_position = collision.world_to_map(target_position)
+	var cell = collision.get_cell(cell_position[0], cell_position[1])
+	if cell in [0, 2]: # Prepare collision animation.
+		target_position -= movedir * tile_size / 2
+		colliding = 1
+	if cell == 1:
+		dead = true
+		death()
+	elif cell == 2 and facing_direction == FACING_RIGHT:
+		mission_complete = true
+		get_parent().complete_mission()
+		$AnimatedSprite.play("put_down_box")
+
 # Set movedir and position info for _process(delta).
 func move_forward():
 	movedir = MOVEDIRS[facing_direction]
 	last_position = position
 	target_position += movedir * tile_size
-	var collision = get_parent().get_node("Map/Collision")
-	var cell_position = collision.world_to_map(target_position)
-	var cell = collision.get_cell(cell_position[0], cell_position[1])
-	if cell in [0, 1]:
-		target_position = last_position
-	elif cell == 1:
-		dead = true
-	elif cell == 2 and facing_direction == FACING_RIGHT:
-		get_parent().complete_mission()
-		$AnimatedSprite.play("put_down_box")
+	handle_collision()
 
 func turn_left(): facing_direction = (facing_direction + 3) % 4
 func turn_right(): facing_direction = (facing_direction + 1) % 4
@@ -120,9 +127,23 @@ func place_panels():
 	bp.scale = camera.zoom
 	sp.scale = camera.zoom
 
+func process_collision(delta):
+	if Isometric.isometric_distance(position, target_position) <= speed * delta:
+		position = target_position
+		movedir = MOVEDIRS[(facing_direction + 2) % 4]
+		target_position += movedir * tile_size / 2
+		colliding = colliding + 1
+	if colliding == 3:
+		colliding = 0
+		target_position = position
+		movedir = Vector2.ZERO
+
 # Move player towards movedir.
 func process_movement(delta):
 	position += speed * movedir * delta
+	if colliding > 0: 
+		process_collision(delta)
+		return
 	# Snap to grid.
 	if Isometric.isometric_distance(position, last_position) >= tile_size - speed * delta:
 		position = target_position
@@ -130,6 +151,7 @@ func process_movement(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if mission_complete: return
 	if camera.zooming_in_process(): camera.process_zoom(delta)
 	get_action_index_from_input()
 	get_action_type_from_input()

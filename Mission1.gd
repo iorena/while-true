@@ -4,20 +4,24 @@ onready var player = get_node("Player")
 onready var sp = get_node("SidePanel")
 onready var bp = get_node("BottomPanel")
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	unlock_player_actions()
-	player.facing_direction = player.FACING_RIGHT
-	set_new_player_actions(Actions.FORWARD, Actions.FORWARD, Actions.FORWARD, Actions.FORWARD)
-	player.camera.set_zoom(0.8)
-	player.camera.set_smooth_zoom(0.6)
+	player.position = $Map/Floor.map_to_world(Vector2(-9, -6))
+	player.position.y += $Player.tile_size / 2
+	player.dead = false
+	player.mission_complete = false
 	player.holding_box = true
-	
+	player.colliding = 0
+	player.facing_direction = player.FACING_RIGHT
+	player.play_idle_animation()
+	unlock_player_actions()
+	set_new_player_actions(Actions.FORWARD, Actions.FORWARD, Actions.FORWARD, Actions.FORWARD)
+	player.camera.set_zoom(0.6)
+	bp.log_clear()
+
 func complete_mission():
 	print("you have completed the mission!")
 	#get_root().change_scene("res://???")
-	
 
 func restart_scene():
 	for i in range(10):

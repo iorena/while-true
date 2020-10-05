@@ -11,3 +11,6 @@ func log_write(text):
 	log_newline()
 
 func log_newline(): log_text.text += "\n"
+
+func log_clear():
+	log_text.text = ""
