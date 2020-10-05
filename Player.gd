@@ -55,9 +55,11 @@ func _on_ActionTimer_timeout():
 		return
 	elif action == Actions.TURN_LEFT:
 		yield(get_tree().create_timer(0.5), "timeout")
+		$TurnSound.play()
 		turn_left()
 	elif action == Actions.TURN_RIGHT:
 		yield(get_tree().create_timer(0.5), "timeout")
+		$TurnSound.play()
 		turn_right()
 	elif action == Actions.WELD:
 		play_weld_animation()
@@ -107,8 +109,12 @@ func handle_collision():
 		death()
 	elif cell == 2 and facing_direction == FACING_RIGHT:
 		mission_complete = true
-		get_parent().complete_mission()
 		$AnimatedSprite.play("put_down_box")
+		$PutDownBoxSound.play()
+		get_parent().complete_mission()
+	else:
+		$MoveSound.play()
+		
 
 # Set movedir and position info for _process(delta).
 func move_forward():
@@ -161,6 +167,9 @@ func _process(delta):
 func play_weld_animation():
 	if facing_direction == FACING_DOWN: $AnimatedSprite.play("weld_down")
 	elif facing_direction == FACING_UP: $AnimatedSprite.play("weld_up")
+	yield(get_tree().create_timer(0.8), "timeout")
+	get_parent().get_node("WeldSound").play()
+	
 func play_idle_animation(): $AnimatedSprite.play(IDLE_ANIMATIONS[facing_direction][int(holding_box)])
 func play_movement_animation(): $AnimatedSprite.play(MOVE_ANIMATIONS[facing_direction][int(holding_box)])
 func play_electrocute_animation(): $AnimatedSprite.play(ELECTROCUTE_ANIMATIONS[facing_direction][int(holding_box)])
