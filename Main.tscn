@@ -361,7 +361,7 @@ tile_data = PoolIntArray( -458745, 0, 0, -393209, 0, 0, -327673, 0, 0, -262137, 
 [node name="TV" type="AnimatedSprite" parent="."]
 position = Vector2( 225.864, 87.7243 )
 frames = SubResource( 13 )
-frame = 1
+frame = 4
 playing = true
 
 [node name="BottomPanel" parent="." instance=ExtResource( 7 )]
@@ -375,7 +375,6 @@ autostart = true
 position = Vector2( 96, 184 )
 
 [node name="SidePanel" parent="." instance=ExtResource( 6 )]
-visible = false
 
 [node name="YSort" type="YSort" parent="."]
 
