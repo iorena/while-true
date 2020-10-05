@@ -14,6 +14,11 @@ func _ready():
 	player.camera.set_smooth_zoom(0.6)
 	player.holding_box = true
 	
+func complete_mission():
+	print("you have completed the mission!")
+	#get_root().change_scene("res://???")
+	
+
 func restart_scene():
 	for i in range(10):
 		$Map/Darkness.color.a += 0.1

@@ -104,8 +104,11 @@ func move_forward():
 	var cell = collision.get_cell(cell_position[0] - 1, cell_position[1] - 1)
 	if cell != -1:
 		target_position = last_position
-	if cell == 1:
+	elif cell == 1:
 		dead = true
+	elif cell == 2 and facing_direction == FACING_RIGHT:
+		get_parent().complete_mission()
+		$AnimatedSprite.play("put_down_box")
 
 func turn_left(): facing_direction = (facing_direction + 3) % 4
 func turn_right(): facing_direction = (facing_direction + 1) % 4
