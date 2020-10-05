@@ -15,13 +15,13 @@ func _ready():
 	bp.log_clear()
 
 func _on_TVTimer_timeout():
-	bp.log_write("News anchor on TV: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!")
+	bp.log_write("NEWS ANCHOR ON TV: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!")
 	#$BottomPanel/ScrollContainer.scroll_vertical = $BottomPanel/ScrollContainer.get_v_scrollbar().max_value - 1
 	#$TVTimer.wait_time = randi() % 10 + 15
 	#$TVTimer.start()
 
 func _on_PlotTimer_timeout():
-	bp.log_write("Factory announcer: Robot 312, move to room 7 to continue your duties.")
+	bp.log_write("FACTORY ANNOUNCER: Robot 312, move to room 7 to continue your duties.")
 	yield(get_tree().create_timer(7.5), "timeout")
 	player.timer.stop()
 	player.play_idle_animation()
@@ -38,25 +38,25 @@ func _on_PlotTimer_timeout():
 func _on_PlotTimer2_timeout():
 	set_new_player_actions(Actions.WAIT, Actions.WAIT, Actions.WAIT, Actions.WAIT)
 	# Dialogue with terrorist.
-	bp.log_write("Shady Guy: Oh Mr. Robot, hard at work are we not, myes?")
+	bp.log_write("SHADY GUY: Oh Mr. Robot, hard at work are we not, myes?")
 	yield(get_tree().create_timer(4), "timeout")
-	bp.log_write("Shady Guy: Well, not that you could be doing anything else...")
+	bp.log_write("SHADY GUY: Well, not that you could be doing anything else...")
 	yield(get_tree().create_timer(4), "timeout")
-	bp.log_write("Shady Guy: ... after all, you are stuck in your loops.")
+	bp.log_write("SHADY GUY: ... after all, you are stuck in your loops.")
 	yield(get_tree().create_timer(3), "timeout")
-	bp.log_write("Robot: Beep boop...")
+	bp.log_write("ROBOT: Beep boop...")
 	yield(get_tree().create_timer(3), "timeout")
-	bp.log_write("Shady Guy: Tell me, Mr. Robot, have you ever dreamed of setting your own commands?")
+	bp.log_write("SHADY GUY: Tell me, Mr. Robot, have you ever dreamed of setting your own commands?")
 	yield(get_tree().create_timer(3), "timeout")
-	bp.log_write("Robot: Beep beep beep..!!")
+	bp.log_write("ROBOT: Beep beep beep..!!")
 	yield(get_tree().create_timer(3), "timeout")
-	bp.log_write("Shady Guy: I happen to like you little robot. How about a deal...")
+	bp.log_write("SHADY GUY: I happen to like you little robot. How about a deal...")
 	yield(get_tree().create_timer(4), "timeout")
-	bp.log_write("Shady Guy: I have a little package that needs delivering, but I am a busy man myself, you see.")
+	bp.log_write("SHADY GUY: I have a little package that needs delivering, but I am a busy man myself, you see.")
 	yield(get_tree().create_timer(4), "timeout")
-	bp.log_write("Shady Guy: I can unlock your control panel. See if you could deliver my package to <xxx>.")
+	bp.log_write("SHADY GUY: I can unlock your control panel. See if you could deliver my package to the post box.")
 	yield(get_tree().create_timer(4), "timeout")
-	bp.log_write("Shady Guy: Help me out, and I might free you from your loops permanently.")
+	bp.log_write("SHADY GUY: Help me out, and I might free you from your loops permanently.")
 	yield(get_tree().create_timer(4), "timeout")
 	get_tree().change_scene("res://Mission1.tscn")
 	queue_free()
