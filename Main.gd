@@ -12,6 +12,7 @@ func _ready():
 	set_new_player_actions(Actions.WELD, Actions.WELD, Actions.TURN_RIGHT, Actions.TURN_RIGHT)
 	player.camera.set_zoom(0.8)
 	player.camera.set_smooth_zoom(0.6)
+	bp.log_clear()
 
 func _on_TVTimer_timeout():
 	bp.log_write("News anchor on TV: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!")
