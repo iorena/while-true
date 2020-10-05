@@ -40,6 +40,7 @@ bbcode_text = "[b]News anchor on TV[/b]: Good morning! The weather is sunny and 
 "
 text = "News anchor on TV: Good morning! The weather is sunny and warm here in Happydale. It looks to be a wonderful day. No signs of terrorism anywhere!
 "
+scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
