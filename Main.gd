@@ -5,8 +5,8 @@ onready var sp = get_node("SidePanel")
 onready var bp = get_node("BottomPanel")
 
 # Called when the node enters the scene tree for the first time.
-func _ready(): 
-	lock_player_actions()
+func _ready():
+	unlock_player_actions()
 	player.facing_direction = player.FACING_DOWN
 	set_new_player_actions(Actions.WELD, Actions.WELD, Actions.TURN_RIGHT, Actions.TURN_RIGHT)
 	player.camera.set_zoom(0.8)
@@ -63,7 +63,7 @@ func set_new_player_actions(A1, A2, A3, A4):
 func lock_player_actions():
 	player.can_act = false
 	sp.show_locks()
-
+	
 func unlock_player_actions():
 	player.can_act = true
 	sp.hide_locks()

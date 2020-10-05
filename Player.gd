@@ -9,6 +9,7 @@ onready var timer = $ActionTimer
 var speed = 32
 var tile_size = 32
 var can_act = false
+var dead = false
 
 # Action buffer.
 var action_buffer = []
@@ -22,6 +23,7 @@ var facing_direction = FACING_DOWN
 
 const IDLE_ANIMATIONS = ["idle_right", "idle_down", "idle_left", "idle_up"]
 const MOVE_ANIMATIONS = ["move_right", "move_down", "move_left", "move_up"]
+const ELECTROCUTE_ANIMATIONS = ["die_right", "die_down", "die_left", "die_up"]
 const MOVEDIRS = [Isometric.RIGHT, Isometric.DOWN, Isometric.LEFT, Isometric.UP]
 
 # Movement-related variables.
@@ -44,7 +46,10 @@ func _on_ActionTimer_timeout():
 	increment_action_number()
 	if action == Actions.FORWARD:
 		move_forward()
-		play_movement_animation()
+		if not dead:
+			play_movement_animation()
+		else:
+			play_electrocute_animation()
 		return
 	elif action == Actions.TURN_LEFT:
 		yield(get_tree().create_timer(0.5), "timeout")
@@ -89,6 +94,18 @@ func move_forward():
 	movedir = MOVEDIRS[facing_direction]
 	last_position = position
 	target_position += movedir * tile_size
+	var objects = get_parent().get_node("Objects")
+	var danger_objects = get_parent().get_node("TopObjects")
+	var cell_position = objects.world_to_map(target_position)
+	var danger_cell_position = danger_objects.world_to_map(target_position)
+	var cell = objects.get_cell(cell_position[0] - 1, cell_position[1] - 1)
+	var danger_cell = danger_objects.get_cell(danger_cell_position[0] - 1, danger_cell_position[1] - 1)
+	if cell != -1 or danger_cell != -1:
+		target_position = last_position
+	if danger_cell == 10:
+		dead = true
+	
+
 
 func turn_left(): facing_direction = (facing_direction + 3) % 4
 func turn_right(): facing_direction = (facing_direction + 1) % 4
@@ -120,3 +137,4 @@ func play_weld_animation():
 	elif facing_direction == FACING_UP: $AnimatedSprite.play("weld_up")
 func play_idle_animation(): $AnimatedSprite.play(IDLE_ANIMATIONS[facing_direction])
 func play_movement_animation(): $AnimatedSprite.play(MOVE_ANIMATIONS[facing_direction])
+func play_electrocute_animation(): $AnimatedSprite.play(ELECTROCUTE_ANIMATIONS[facing_direction])
