@@ -101,8 +101,8 @@ func move_forward():
 	target_position += movedir * tile_size
 	var collision = get_parent().get_node("Map/Collision")
 	var cell_position = collision.world_to_map(target_position)
-	var cell = collision.get_cell(cell_position[0] - 1, cell_position[1] - 1)
-	if cell != -1:
+	var cell = collision.get_cell(cell_position[0], cell_position[1])
+	if cell in [0, 1]:
 		target_position = last_position
 	elif cell == 1:
 		dead = true
