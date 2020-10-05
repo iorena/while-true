@@ -18,6 +18,7 @@ func _ready():
 	bp.log_clear()
 
 func complete_mission():
+	yield(get_tree().create_timer(1), "timeout")
 	get_tree().change_scene("res://EndScene.tscn")
 
 func restart_scene():

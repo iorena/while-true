@@ -342,11 +342,11 @@ position = Vector2( 156.168, 219.605 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 226.061, 89.8986 )
 frames = SubResource( 13 )
-frame = 6
+frame = 1
 playing = true
 
 [node name="EndTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 12.0
 one_shot = true
 autostart = true
 
