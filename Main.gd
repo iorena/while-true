@@ -7,8 +7,6 @@ onready var bp = get_node("BottomPanel")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	lock_player_actions()
-	player.position = $Map/Floor.map_to_world(Vector2(7, 4))
-	player.position.y += $Player.tile_size / 2
 	player.facing_direction = player.FACING_DOWN
 	player.play_idle_animation()
 	set_new_player_actions(Actions.WELD, Actions.WELD, Actions.TURN_RIGHT, Actions.TURN_RIGHT)

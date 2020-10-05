@@ -6,8 +6,6 @@ onready var bp = get_node("BottomPanel")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player.position = $Map/Floor.map_to_world(Vector2(-9, -6))
-	player.position.y += $Player.tile_size / 2
 	player.dead = false
 	player.mission_complete = false
 	player.holding_box = true

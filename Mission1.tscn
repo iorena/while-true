@@ -159,7 +159,7 @@ position = Vector2( 606.467, 43.8146 )
 frames = SubResource( 6 )
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
-position = Vector2( -32.9223, -192.712 )
+position = Vector2( -32.9223, -195.15 )
 
 [node name="SidePanel" parent="." instance=ExtResource( 9 )]
 

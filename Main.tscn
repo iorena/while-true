@@ -320,6 +320,7 @@ animations = [ {
 } ]
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( -11.8301, 22.5847 )
 script = ExtResource( 18 )
 
 [node name="Map" type="Node2D" parent="."]
@@ -357,7 +358,7 @@ format = 1
 [node name="TV" type="AnimatedSprite" parent="."]
 position = Vector2( 225.864, 87.7243 )
 frames = SubResource( 13 )
-frame = 5
+frame = 1
 playing = true
 
 [node name="BottomPanel" parent="." instance=ExtResource( 7 )]
@@ -368,7 +369,7 @@ one_shot = true
 autostart = true
 
 [node name="Player" parent="." instance=ExtResource( 21 )]
-position = Vector2( 96, 184 )
+position = Vector2( 95.283, 187.943 )
 
 [node name="SidePanel" parent="." instance=ExtResource( 6 )]
 
