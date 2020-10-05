@@ -18,8 +18,7 @@ func _ready():
 	bp.log_clear()
 
 func complete_mission():
-	print("you have completed the mission!")
-	#get_root().change_scene("res://???")
+	get_tree().change_scene("res://EndScene.tscn")
 
 func restart_scene():
 	for i in range(10):
