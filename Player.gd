@@ -5,16 +5,17 @@ var speed = 32
 var tile_size = 32
 
 # Available actions
-enum {FORWARD, TURN_LEFT, TURN_RIGHT, WAIT}
+enum {FORWARD, TURN_LEFT, TURN_RIGHT, WAIT, WELD}
 const FORWARD_ACTION_TEXT = "Move forward"
 const TURN_LEFT_ACTION_TEXT = "Turn left"
 const TURN_RIGHT_ACTION_TEXT = "Turn right"
 const WAIT_ACTION_TEXT = "Wait"
+const WELD_ACTION_TEXT = "Weld"
 
 var can_act = true
 
 # Action buffer
-var action_buffer = [WAIT, WAIT, TURN_RIGHT, TURN_RIGHT]
+var action_buffer = []
 var action_number = 0
 var modify_action = 0
 
@@ -32,10 +33,8 @@ func _ready():
 	position = position.snapped(Isometric.cartesian_to_isometric(Vector2.ONE * tile_size))
 	last_position = position
 	target_position = position
-	for i in range(1, 5): clear_action_index(i)
-	for i in range(1, 3): set_action_text(i, WAIT_ACTION_TEXT)
-	for i in range(3, 5): set_action_text(i, TURN_RIGHT_ACTION_TEXT)
-	toggle_act()
+	
+
 
 func toggle_act():
 	for i in range(1, 5):
@@ -55,9 +54,15 @@ func _on_ActionTimer_timeout():
 	elif action == TURN_LEFT:
 		yield(get_tree().create_timer(0.5), "timeout")
 		turn_left()
+		animate_movement(false)
 	elif action == TURN_RIGHT:
 		yield(get_tree().create_timer(0.5), "timeout")
 		turn_right()
+		animate_movement(false)
+	elif action == WELD:
+		weld()
+	elif action == WAIT:
+		animate_movement(false)
 	action_number += 1
 	if action_number == action_buffer.size(): action_number = 0
 
@@ -120,6 +125,12 @@ func turn_right():
 	elif moving_to == MOVING_DOWN: moving_to = MOVING_LEFT
 	elif moving_to == MOVING_LEFT: moving_to = MOVING_UP
 	else: moving_to = MOVING_RIGHT
+	
+func weld():
+	if moving_to == MOVING_DOWN:
+		$AnimatedSprite.play("weld_down")
+	elif moving_to == MOVING_UP:
+		$AnimatedSprite.play("weld_up")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -132,8 +143,6 @@ func _process(delta):
 		if Isometric.isometric_distance(position, last_position) >= tile_size - speed * delta:
 			position = target_position
 			movedir = Vector2.ZERO
-	else:
-		animate_movement(false)
 
 func animate_movement(moving):
 	# Play movement animation based on move direction
